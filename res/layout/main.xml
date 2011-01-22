@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="This app will attempt to take a picture\nusing the built-in camera intents."
+    />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/IMPORT_FROM_CAMERA"
+        android:text="Launch Camera Intent"/>
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/IMPORT_FROM_HTC_CAMERA"
+        android:text="Launch SenseUI Camera"/>
+      <Button
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/IMPORT_FROM_SELECT"
+        android:text="Launch Select Intent"/>
+      <Button
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/IMPORT_FROM_LISTENER"
+        android:text="Launch From Listener"/>
+</LinearLayout>
+
