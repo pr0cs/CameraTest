@@ -1,6 +1,4 @@
-This file was created by IntelliJ IDEA 10.0.1 for binding GitHub repository
-
-Use the camera intent in Android can be pretty confusing due to limited example code and different results from
+Using the camera intent in Android can be pretty confusing due to limited example code and different results from
 different devices. This sample code aims to show some solutions or demonstrate different scenarios around image
 captures when using the built in Media camera intent.
 
@@ -30,3 +28,5 @@ http://code.google.com/p/picasaphotouploader/
 I discovered Jan Peter Hooiveld's project on Google code and though I could modify it to use it to act as a
 simple notifier when a new image appeared after the camera intent completed.  I was right, this method should
 work for ALL phones AND not create duplicate images.
+
+This file was created by IntelliJ IDEA 10.0.1 for binding GitHub repository
