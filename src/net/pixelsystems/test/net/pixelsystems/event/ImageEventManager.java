@@ -71,10 +71,8 @@ public class ImageEventManager {
         _cameraIntentComplete = false;
         _cachedImageItem=null;
         _source.getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, camera);
-        Log.d("ImageEventManager","listenForCameraEvents");
     }
     public void ignoreCameraEvents(){
-        Log.d("ImageEventManager","ignoreCameraEvents");
         _cameraIntentComplete = false;
         _cachedImageItem=null;
         if(_progressDialog!=null){
@@ -84,12 +82,10 @@ public class ImageEventManager {
         _source.getContentResolver().unregisterContentObserver(camera);
     }
     public void cameraIntentComplete(){
-        Log.d("ImageEventManager","cameraIntentComplete");
         _cameraIntentComplete=true;
         verifyImageEvent();
     }
     private void verifyImageEvent(){
-        Log.d("ImageEventManager","verifyImageEvent");
         if(_cameraIntentComplete && _cachedImageItem!= null){
             if(_progressDialog!=null){
                 _progressDialog.dismiss();
@@ -111,14 +107,10 @@ public class ImageEventManager {
      * Store highest image id from image table
      */
     private void setMaxIdFromDatabase() {
-        Log.d("ImageEventManager","setMaxIdFromDatabase");
         String columns[] = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.MINI_THUMB_MAGIC};
         Cursor cursor = _source.managedQuery(MediaStore.Images.Media.INTERNAL_CONTENT_URI, columns, null, null, MediaStore.Images.Media._ID + " DESC");
-        Log.d("ImageEventManager","setMaxIdFromDatabase:cursor");
         if(cursor != null){
-            Log.d("ImageEventManager","setMaxIdFromDatabase:cursor not null");
             maxId = cursor.moveToFirst() ? cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID)) : -1;
-            Log.d("ImageEventManager","setMaxIdFromDatabase:cursor close");
             cursor.close();
         }
         else
@@ -199,15 +191,12 @@ public class ImageEventManager {
          * @return highest image id in database or -1 if conditions fail
          */
         private int getId() {
-            Log.d("ImageEventManager","getId");
             String[] columns = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.ORIENTATION};
             Cursor cursor = _source.managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, MediaStore.Images.Media._ID + " DESC");
-            Log.d("ImageEventManager","getId:cursor");
             if(cursor==null)
                 return -1;
             // check if table has any rows at all
             if (!cursor.moveToFirst()) {
-                Log.d("ImageEventManager","getId:cursor:close");
                 cursor.close();
                 return -1;
             }
@@ -220,7 +209,6 @@ public class ImageEventManager {
             // deleted somewhere in table so store the new highest id and return
             if (latestId <= maxId) {
                 setMaxId(latestId);
-                Log.d("ImageEventManager","getId:cursor:close");
                 cursor.close();
                 return -1;
             }
@@ -231,7 +219,6 @@ public class ImageEventManager {
 
             if (orientation == null) {
                 setMaxId(latestId);
-                Log.d("ImageEventManager","getId:cursor:close");
                 cursor.close();
                 return -1;
             }
@@ -240,7 +227,6 @@ public class ImageEventManager {
             setMaxId(latestId);
 
             cursor.close();
-            Log.d("ImageEventManager","getId:cursor:close Return");
             // return latest id
             return latestId;
         }
@@ -259,15 +245,12 @@ public class ImageEventManager {
         private ImageItem getLatestItem() {
             // set vars
             ImageItem item = null;
-            String columns[] = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.MINI_THUMB_MAGIC};
-
-            Log.d("ImageEventManager","getLatestItem");
+            String columns[] = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA,  MediaStore.Images.Media.MINI_THUMB_MAGIC};
             // loop until break
             while (true) {
                 // get latest image from table
                 Uri image = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, latestId);
                 Cursor cursor = _source.managedQuery(image, columns, null, null, null);
-                Log.d("ImageEventManager","getLatestItem:cursor");
                 if(cursor == null)
                         break;
                 // check if cursor has rows, if not break and exit loop
@@ -281,16 +264,14 @@ public class ImageEventManager {
                         item = new ImageItem();
                         item.imageId = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                         item.imagePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                        item.imageName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-                        item.imageType = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));
-                        item.imageSize = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
-                        Log.d("ImageEventManager","getLatestItem:cursor:close image");
+                        //item.imageName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+                        //item.imageType = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));
+                        //item.imageSize = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
                         cursor.close();
                         break;
                     }else
                         cursor.close();
                 } else {
-                    Log.d("ImageEventManager","getLatestItem:cursor:close image other");
                     cursor.close();
                     break;
                 }
@@ -302,9 +283,9 @@ public class ImageEventManager {
     private class ImageItem {
         public Integer imageId;
         public String imagePath;
-        public String imageName;
-        public String imageType;
-        public int imageSize;
+        //public String imageName;
+        //public String imageType;
+        //public int imageSize;
     }
 
 }
