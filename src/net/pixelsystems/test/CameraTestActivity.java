@@ -185,37 +185,9 @@ public class CameraTestActivity extends Activity implements ImageEventListener {
             public void onClick(View v) {
                 //create new Intent
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //String rawFile = "WORKING_CAMERA_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-                //selFile = new File(Environment.getExternalStorageDirectory(), rawFile);
-                //selUri = Uri.fromFile(selFile);
-                //intent.putExtra(MediaStore.EXTRA_OUTPUT, selUri);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                //intent.putExtra(MediaStore.EXTRA_MEDIA_TITLEEXTRA_VIDEO_QUALITY, 1);
-                _iem.listenForCameraEvents();
-                startActivityForResult(intent, CAPTURE_WITH_LISTENER);
-                if(true)
-                        return;
-
-                 //define the file-name to save photo taken by Camera activity
-                String rawFile = "WORKING_CAMERA_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-                //create parameters for Intent with filename
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, rawFile);
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-                values.put(MediaStore.Images.Media.DISPLAY_NAME, "Photo");
-                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-
-                selFile = new File(Environment.getExternalStorageDirectory(), rawFile);
-                selUri = Uri.fromFile(selFile);
-
-                //create new Intent
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, selUri);
                 intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                 _iem.listenForCameraEvents();
                 startActivityForResult(intent, CAPTURE_WITH_LISTENER);
-
             }
         });
 
@@ -317,7 +289,6 @@ public class CameraTestActivity extends Activity implements ImageEventListener {
              */
             switch (resultCode) {
                 case RESULT_OK:
-                   // handlePhotoEvent();
                     _iem.cameraIntentComplete();
                     break;
                 case RESULT_CANCELED:
