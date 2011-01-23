@@ -1,32 +1,17 @@
-Using the camera intent in Android can be pretty confusing due to limited example code and different results from
-different devices. This sample code aims to show some solutions or demonstrate different scenarios around image
-captures when using the built in Media camera intent.
+Using the camera intent in Android can be pretty confusing due to limited example code and different results from different devices. This sample code aims to show some solutions or demonstrate different scenarios around image captures when using the built in Media camera intent.
 
-This project is based off a myriad of examples that I read covering capturing camera images from an Android device
-using the built in Camera intent rather than writing your own camera surface/control class.
+This project is based off a myriad of examples that I read covering capturing camera images from an Android device using the built in Camera intent rather than writing your own camera surface/control class.
 
 http://achorniy.wordpress.com/2010/04/26/howto-launch-android-camera-using-intents/
-Andrey Chorniy's article discusses a great framework on how to use the camera intent, sadly his example does not
-take into account some UI enhancements can modify the results of the intent.  So while his code works perfect in
-the emulator it does not work on a lot of devices and still will create multiple copies of the same image on the device
+Andrey Chorniy's article discusses a great framework on how to use the camera intent, sadly his example does not take into account some UI enhancements can modify the results of the intent.  So while his code works perfect in the emulator it does not work on a lot of devices and still will create multiple copies of the same image on the device
 
 http://www.jondev.net/articles/Capturing,_Saving,_and_Displaying_an_Image_in_Android_%281.5,_1.6,_2.0,_2.1,_2.2,_Sense_UI_-_Hero%29
-Jon Simon's example was enlightening in that it pointed out that some device manufacturer's UI skins were interfering
-and manipulating the results from the Camera intent.  The project that I was working on at the time was having difficulty
-getting images into the app on HTC type devices, this is because SenseUI (from HTC) was giving totally different
-results than a lot of other generally accepted ways to use the Camera intent.
+Jon Simon's example was enlightening in that it pointed out that some device manufacturer's UI skins were interfering and manipulating the results from the Camera intent.  The project that I was working on at the time was having difficulty getting images into the app on HTC type devices, this is because SenseUI (from HTC) was giving totally different results than a lot of other generally accepted ways to use the Camera intent.
 
 http://blog.tacticalnuclearstrike.com/tttumblr/
-Fredrik Leijon's tumblr application clued me into how to get the image from the camera intent to save on all devices
-at this point I was really close with a good fix for my app but wasn't thrilled with having duplicate images.
-the code will function but will create one image at the Uri specified in the intent's extras AND a file saved
-at the default file location DCIM (at least on my Samsung Galaxy S).  I didn't really need 2 images and I figured
-my users wouldn't be thrilled about having to clean up the extra files even if I was able to clean up one of the
-files that was specified in the URI
+Fredrik Leijon's tumblr application clued me into how to get the image from the camera intent to save on all devices at this point I was really close with a good fix for my app but wasn't thrilled with having duplicate images. The code will function but will create one image at the Uri specified in the intent's extras AND a file saved at the default file location DCIM (at least on my Samsung Galaxy S).  I didn't really need 2 images and I figured my users wouldn't be thrilled about having to clean up the extra files even if I was able to clean up one of the files that was specified in the URI
 
 http://code.google.com/p/picasaphotouploader/
-I discovered Jan Peter Hooiveld's project on Google code and though I could modify it to use it to act as a
-simple notifier when a new image appeared after the camera intent completed.  I was right, this method should
-work for ALL phones AND not create duplicate images.
+I discovered Jan Peter Hooiveld's project on Google code and though I could modify it to use it to act as a simple notifier when a new image appeared after the camera intent completed.  I was right, this method should work for ALL phones AND not create duplicate images.
 
 This file was created by IntelliJ IDEA 10.0.1 for binding GitHub repository
