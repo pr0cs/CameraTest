@@ -45,9 +45,7 @@ public class ImageEventManager {
     private Activity _source;
     private ImageTableObserver camera;
     private ImageEventListener _listener;
-    private boolean _cameraIntentComplete=false;
     private ImageItem _cachedImageItem=null;
-    private ProgressDialog _progressDialog=null;
 
     /**
      * Constructor
@@ -68,38 +66,22 @@ public class ImageEventManager {
     }
 
     public void listenForCameraEvents(){
-        _cameraIntentComplete = false;
         _cachedImageItem=null;
         _source.getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, camera);
     }
     public void ignoreCameraEvents(){
-        _cameraIntentComplete = false;
         _cachedImageItem=null;
-        if(_progressDialog!=null){
-            _progressDialog.dismiss();
-            _progressDialog=null;
-        }
         _source.getContentResolver().unregisterContentObserver(camera);
     }
     public void cameraIntentComplete(){
-        _cameraIntentComplete=true;
         verifyImageEvent();
     }
-    private void verifyImageEvent(){
-        if(_cameraIntentComplete && _cachedImageItem!= null){
-            if(_progressDialog!=null){
-                _progressDialog.dismiss();
-                _progressDialog = null;
-            }
-            _listener.newImageAvailable(_cachedImageItem.imagePath);
+
+     private synchronized void verifyImageEvent(){
+        if(_cachedImageItem!=null){
+            String imagePath = _cachedImageItem.imagePath;
             ignoreCameraEvents();
-        }else if(_cameraIntentComplete && _cachedImageItem==null){
-            // we're still waiting for the image to be written
-            // display a progress dialog
-             _progressDialog = ProgressDialog.show(_source,
-                                                            "Saving",
-                                                            "Saving Camera captured image",
-                                                            true);
+            _listener.newImageAvailable(imagePath);
         }
     }
 
